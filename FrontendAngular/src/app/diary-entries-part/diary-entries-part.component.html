@@ -1,0 +1,40 @@
+<!-- Show entries if any exist -->
+<!-- NOTE: Old zone-based way: *ngIf="entries.length > 0" would work when entries was a plain array -->
+<!-- Since we now use a signal, we must call it with parentheses: entries() -->
+<div *ngIf="entries().length > 0; else noEntries">
+
+    <!-- Loop through each diary entry -->
+    <!-- Old zone-based: *ngFor="let entry of entries" -->
+    <!-- New signal-based: use entries() to access the value -->
+    <div *ngFor="let entry of entries()" class="entry">
+        <hr/>
+        <h3>{{ entry.title }}</h3>
+        <p>{{ entry.content }}</p>
+        <br/>
+        <small class="date">
+            📆 {{ entry.dateCreated | date:'EEEE d MMMM y' | titlecase }}<br>
+            ⌚️ {{ entry.dateCreated | date:'HH:mm' }}
+        </small>
+        <div class="entry-actions">
+            <button (click)="editEntry(entry)">✏️</button>
+            <button (click)="deleteEntry(entry)">🗑️</button>
+        </div>
+        <hr/>
+    </div>
+</div>
+
+<!-- Message shown if there are no diary entries -->
+<ng-template #noEntries>
+    <p class="no-entries">Inga inlägg än. Skriv något gulligt!</p>
+</ng-template>
+
+<!-- Form for creating a new diary entry -->
+<div class="form-container">
+    <h2>Skriv nytt inlägg ✨</h2>
+    <form (ngSubmit)="createEntry()">
+        <input [(ngModel)]="newEntry.title" name="title" placeholder="Titel" required />
+        <textarea [(ngModel)]="newEntry.content" name="content" placeholder="Vad vill du skriva idag?" rows="5"
+            required></textarea>
+        <button type="submit">💌 Publicera</button>
+    </form>
+</div>
