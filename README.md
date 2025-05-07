@@ -1,1 +1,1 @@
-# DiaryWithVUE
+# DiaryDifferentFrontends
