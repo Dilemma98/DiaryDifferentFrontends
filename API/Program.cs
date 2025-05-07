@@ -9,8 +9,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            //4200: Angular, 8080: Vue, 
-            policy.WithOrigins("http://localhost:4200", "http://localhost:8080/") // Exempel på frontend-URL (kan vara den port du kör din frontend på)
+            //4200: Angular, 8080: Vue, 5173: Svelte
+            policy.WithOrigins("http://localhost:4200", "http://localhost:8080/", "http://localhost:5173") // Exempel på frontend-URL (kan vara den port du kör din frontend på)
                   .AllowAnyOrigin()
                   .AllowAnyMethod()
                   .AllowAnyHeader();
